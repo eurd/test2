@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录注册</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>登录/注册</h1>
+        <input type="text" id="username" placeholder="用户名" required>
+        <input type="password" id="password" placeholder="密码" required>
+        <button onclick="login()">登录</button>
+        <button onclick="register()">注册</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const correctUsername = "abc";
+        const correctPassword = "123";
+
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const message = document.getElementById("message");
+
+            if (username === correctUsername && password === correctPassword) {
+                message.textContent = "登录成功！";
+                message.style.color = "green";
+                // 登录成功后跳转到 2.html
+                setTimeout(() => {
+                    window.location.href = "/2.html";
+                }, 1000); // 1秒后跳转
+            } else {
+                message.textContent = "用户名或密码错误！";
+                message.style.color = "red";
+            }
+        }
+
+        function register() {
+            const message = document.getElementById("message");
+            message.textContent = "注册成功！使用相同的用户名和密码登录。";
+            message.style.color = "green";
+        }
+    </script>
+</body>
+</html>

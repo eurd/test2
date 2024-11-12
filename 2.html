@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google 小恐龙游戏</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f7f7f7;
+        }
+        #gameCanvas {
+            background-color: #ffffff;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+        .dino {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            width: 40px;
+            height: 40px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="dino" id="dino"></div>
+    <canvas id="gameCanvas" width="800" height="200"></canvas>
+
+    <script>
+        const dino = document.getElementById('dino');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let isJumping = false;
+        let jumpHeight = 0;
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' && !isJumping) {
+                isJumping = true;
+                jump();
+            }
+        });
+
+        function jump() {
+            if (jumpHeight < 100) {
+                jumpHeight += 5;
+                dino.style.bottom = (20 + jumpHeight) + 'px';
+                requestAnimationFrame(jump);
+            } else {
+                fall();
+            }
+        }
+
+        function fall() {
+            if (jumpHeight > 0) {
+                jumpHeight -= 5;
+                dino.style.bottom = (20 + jumpHeight) + 'px';
+                requestAnimationFrame(fall);
+            } else {
+                isJumping = false;
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, canvas.height - 20, canvas.width, 20); // ground
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+    </script>
+</body>
+</html>
